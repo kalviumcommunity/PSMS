@@ -6,23 +6,26 @@
 #include <iostream>
 
 using namespace std;
+
 class Case {
 public:
+    // Constructor
     Case(int caseID, const string& title, const string& description, const string& status,
-         const string& openDate, const string& closeDate, int assignedOfficerID, int caseCategoryID, int reportID)
-        : caseID(caseID), title(title), description(description), status(status), openDate(openDate),
-          closeDate(closeDate), assignedOfficerID(assignedOfficerID), caseCategoryID(caseCategoryID), reportID(reportID) {}
+         const string& openDate, const string& closeDate, int assignedOfficerID, int caseCategoryID, int reportID);
+
+    // Destructor
+    ~Case();
 
     // Getter methods
-    int getCaseID() const { return caseID; }
-    string getTitle() const { return title; }
-    string getDescription() const { return description; }
-    string getStatus() const { return status; }
-    string getOpenDate() const { return openDate; }
-    string getCloseDate() const { return closeDate; }
-    int getAssignedOfficerID() const { return assignedOfficerID; }
-    int getCaseCategoryID() const { return caseCategoryID; }
-    int getReportID() const { return reportID; }
+    int getCaseID() const;
+    string getTitle() const;
+    string getDescription() const;
+    string getStatus() const;
+    string getOpenDate() const;
+    string getCloseDate() const;
+    int getAssignedOfficerID() const;
+    int getCaseCategoryID() const;
+    int getReportID() const;
 
 private:
     int caseID;
