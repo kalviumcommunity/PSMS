@@ -1,4 +1,3 @@
-// Report.h
 #ifndef REPORT_H
 #define REPORT_H
 
@@ -24,6 +23,12 @@ public:
     string getReportDate() const;
     string getReportType() const;
     int getCaseID() const;
+
+    // Static variable
+    static int totalReports;
+
+    // Static method to access totalReports
+    static int getTotalReportsCount();
 
 private:
     int reportID;
