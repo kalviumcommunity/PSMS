@@ -3,28 +3,30 @@
 #define OFFICER_H
 
 #include <string>
-#include <iostream> // Include for standard input/output
+#include <iostream>
 
-using namespace std; // Add using namespace std; to simplify usage
+using namespace std;
 
 class Officer {
 public:
+    // Constructor
     Officer(int officerID, const string& firstName, const string& lastName, const string& rank,
             const string& badgeNumber, const string& contactInfo, const string& employmentStartDate,
-            const string& employmentEndDate, int roleID)
-        : officerID(officerID), firstName(firstName), lastName(lastName), rank(rank), badgeNumber(badgeNumber),
-          contactInfo(contactInfo), employmentStartDate(employmentStartDate), employmentEndDate(employmentEndDate), roleID(roleID) {}
+            const string& employmentEndDate, int rankID);
+
+    // Destructor
+    ~Officer();
 
     // Getter methods
-    int getOfficerID() const { return officerID; }
-    string getFirstName() const { return firstName; }
-    string getLastName() const { return lastName; }
-    string getRank() const { return rank; }
-    string getBadgeNumber() const { return badgeNumber; }
-    string getContactInfo() const { return contactInfo; }
-    string getEmploymentStartDate() const { return employmentStartDate; }
-    string getEmploymentEndDate() const { return employmentEndDate; }
-    int getRoleID() const { return roleID; }
+    int getOfficerID() const;
+    string getFirstName() const;
+    string getLastName() const;
+    string getRank() const;
+    string getBadgeNumber() const;
+    string getContactInfo() const;
+    string getEmploymentStartDate() const;
+    string getEmploymentEndDate() const;
+    int getRankID() const;
 
 private:
     int officerID;
@@ -35,7 +37,7 @@ private:
     string contactInfo;
     string employmentStartDate;
     string employmentEndDate;
-    int roleID;
+    int rankID;
 };
 
 #endif
