@@ -7,11 +7,12 @@
 
 using namespace std;
 
-class Case {
+class Case
+{
 public:
-    // Constructor
-    Case(int caseID, const string& title, const string& description, const string& status,
-         const string& openDate, const string& closeDate, int assignedOfficerID, int caseCategoryID, int reportID);
+    // Parameterized constructor
+    Case(int caseID, const string &title, const string &description, const string &status,
+         const string &openDate, const string &closeDate, int assignedOfficerID, int caseCategoryID, int reportID);
 
     // Destructor
     ~Case();
@@ -26,6 +27,9 @@ public:
     int getAssignedOfficerID() const;
     int getCaseCategoryID() const;
     int getReportID() const;
+
+    // Static member variable
+    static int totalCases;
 
 private:
     int caseID;

@@ -1,4 +1,3 @@
-// Officer.h
 #ifndef OFFICER_H
 #define OFFICER_H
 
@@ -27,6 +26,12 @@ public:
     string getEmploymentStartDate() const;
     string getEmploymentEndDate() const;
     int getRankID() const;
+
+    // Static variable
+    static int totalOfficers;
+
+    // Static method to access totalOfficers
+    static int getTotalOfficersCount();
 
 private:
     int officerID;

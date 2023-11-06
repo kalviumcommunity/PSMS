@@ -1,17 +1,45 @@
+// main.cpp
 #include "Case.h"
 #include "Officer.h"
 #include "Report.h"
+#include <iostream>
 
 int main() {
-    // Create instances of your classes using constructors
-    Case myCase(1, "Example Case", "Description", "Open", "2023-09-25", "2023-09-30", 101, 1, 201);
-    Officer myOfficer(101, "Somendra", "Swaroop", "Sergeant", "12345", "somendra@swaroop.com", "2022-01-15", "", 1);
-    Report myReport(201, "Report", "Report description", 101, "2023-09-25", "Type A", 1);
+    // Create an array of Case objects
+    Case* cases[3];
 
-    // Access and use the class members
-    cout << "Case ID: " << myCase.getCaseID() << endl;
-    cout << "Officer Name: " << myOfficer.getFirstName() << " " << myOfficer.getLastName() << endl;
-    cout << "Report Title: " << myReport.getReportTitle() << endl;
+    // Create an array of Officer objects
+    Officer* officers[3];
+
+    // Create an array of Report objects
+    Report* reports[3];
+
+    // Populate the arrays with data for cases, officers, and reports
+    for (int i = 0; i < 3; i++) {
+        // Creating Case objects
+        cases[i] = new Case(i + 1, "Example Case " + to_string(i + 1), "Description " + to_string(i + 1), "Open",
+                            "2023-09-25", "", 101 + i, 1, 201 + i);
+
+        // Creating Officer objects
+        officers[i] = new Officer(i + 1, "First Name " + to_string(i), "Last Name " + to_string(i), "Rank " + to_string(i),
+                                  "Badge " + to_string(i), "Contact Info " + to_string(i), "2023-01-01", "", 1 + i);
+
+        // Creating Report objects
+        reports[i] = new Report(i + 1, "Report Title " + to_string(i + 1), "Report Description " + to_string(i + 1),
+                                101 + i, "2023-09-30", "Type " + to_string(i + 1), 201 + i);
+    }
+
+    // Access and use the class members and the static variables
+    for (int i = 0; i < 3; i++) {
+        cout << "Case ID: " << cases[i]->getCaseID() << endl;
+        cout << "Officer ID: " << officers[i]->getOfficerID() << endl;
+        cout << "Report ID: " << reports[i]->getReportID() << endl;
+    }
+
+    // Access the totalCases, totalOfficers, and totalReports static variables
+    cout << "Total Cases: " << Case::totalCases << endl;
+    cout << "Total Officers: " << Officer::totalOfficers << endl;
+    cout << "Total Reports: " << Report::totalReports << endl;
 
     return 0;
 }
