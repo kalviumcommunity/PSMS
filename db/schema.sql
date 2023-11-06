@@ -1,116 +1,85 @@
--- Create the PSMS database
-
+-- Create the PSMS database if it doesn't exist
 CREATE DATABASE IF NOT EXISTS PSMS;
 
--- Drop the PSMS database if it exists
-
-DROP DATABASE IF EXISTS PSMS;
-
 -- Use the PSMS database
-
 USE PSMS;
 
--- CaseCategory Table
+-- Create the Role table
+CREATE TABLE IF NOT EXISTS Role (
+    RoleID INT PRIMARY KEY,
+    RoleName VARCHAR(50)
+);
 
-CREATE TABLE
-    IF NOT EXISTS CaseCategory (
-        CategoryID INT PRIMARY KEY,
-        CategoryName VARCHAR(255) NOT NULL,
-        CategoryDescription TEXT
-    );
+-- Create the ReportCategory table
+CREATE TABLE IF NOT EXISTS ReportCategory (
+    CategoryID INT PRIMARY KEY,
+    CategoryName VARCHAR(50),
+    CategoryDescription VARCHAR(255)
+);
 
--- Rank Table
+-- Create the PoliceStation table
+CREATE TABLE IF NOT EXISTS PoliceStation (
+    StationID INT PRIMARY KEY,
+    StationName VARCHAR(255),
+    Location VARCHAR(255),
+    OfficerInCharge VARCHAR(255),
+    ContactInfo VARCHAR(255)
+);
 
-CREATE TABLE
-    IF NOT EXISTS `Rank` (
-        RankID INT PRIMARY KEY,
-        RankName VARCHAR(255) NOT NULL
-    );
+-- Create the Police_Personal table
+CREATE TABLE IF NOT EXISTS Police_Personal (
+    OfficerID INT PRIMARY KEY,
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Role VARCHAR(50),
+    BadgeNumber VARCHAR(50),
+    ContactInfo VARCHAR(255),
+    EmploymentStartDate DATE,
+    EmploymentEndDate DATE,
+    RoleID INT,
+    StationID INT,
+    FOREIGN KEY (RoleID) REFERENCES Role(RoleID),
+    FOREIGN KEY (StationID) REFERENCES PoliceStation(StationID)
+);
 
--- Police Table
+-- Create the Reports-Case table
+CREATE TABLE IF NOT EXISTS Reports_Case (
+    ReportID INT PRIMARY KEY,
+    ReporterName VARCHAR(255),
+    IncidentType VARCHAR(100),
+    Location VARCHAR(255),
+    IncidentDate DATE,
+    Description TEXT,
+    Status VARCHAR(50),
+    WrittenByOfficerID INT,
+    AssignedOfficerID INT,
+    StationID INT,
+    FOREIGN KEY (WrittenByOfficerID) REFERENCES Police_Personal(OfficerID),
+    FOREIGN KEY (AssignedOfficerID) REFERENCES Police_Personal(OfficerID),
+    FOREIGN KEY (StationID) REFERENCES PoliceStation(StationID)
+);
 
-CREATE TABLE
-    IF NOT EXISTS Police (
-        OfficerID INT PRIMARY KEY,
-        FirstName VARCHAR(255) NOT NULL,
-        LastName VARCHAR(255) NOT NULL,
-        BadgeNumber VARCHAR(20) NOT NULL,
-        ContactInfo TEXT NOT NULL,
-        EmploymentStartDate DATE NOT NULL,
-        EmploymentEndDate DATE,
-        RankID INT,
-        FOREIGN KEY (RankID) REFERENCES `Rank`(RankID)
-    );
+-- Create the UserAccounts table
+CREATE TABLE IF NOT EXISTS UserAccounts (
+    UserID INT PRIMARY KEY,
+    Username VARCHAR(50),
+    PasswordHash VARCHAR(255),
+    OfficerID INT,
+    Role INT,
+    FOREIGN KEY (OfficerID) REFERENCES Police_Personal(OfficerID),
+    FOREIGN KEY (Role) REFERENCES Role(RoleID)
+);
 
--- Report Table
+-- Create the AuditLog table
+CREATE TABLE IF NOT EXISTS AuditLog (
+    LogID INT PRIMARY KEY,
+    Timestamp TIMESTAMP,
+    UserID INT,
+    Action VARCHAR(50),
+    Details TEXT,
+    FOREIGN KEY (UserID) REFERENCES UserAccounts(UserID)
+);
 
-CREATE TABLE
-    IF NOT EXISTS Report (
-        ReportID INT PRIMARY KEY,
-        ReportTitle VARCHAR(255) NOT NULL,
-        ReportDescription TEXT,
-        AuthorOfficerID INT,
-        ReportDate DATE,
-        ReportType VARCHAR(50),
-        CaseID INT,
-        FOREIGN KEY (AuthorOfficerID) REFERENCES Police(OfficerID),
-        FOREIGN KEY (CaseID) REFERENCES Cases(CaseID)
-    );
+-- Show the list of tables in the PSMS database
+SHOW TABLES;
 
--- Cases Table
-
-CREATE TABLE
-    IF NOT EXISTS Cases (
-        CaseID INT PRIMARY KEY,
-        Title VARCHAR(255) NOT NULL,
-        Description TEXT,
-        Status VARCHAR(20) NOT NULL,
-        OpenDate DATE,
-        CloseDate DATE,
-        AssignedOfficerID INT,
-        CaseCategoryID INT,
-        ReportID INT,
-        FOREIGN KEY (AssignedOfficerID) REFERENCES Police(OfficerID),
-        FOREIGN KEY (CaseCategoryID) REFERENCES CaseCategory(CategoryID)
-    );
-
--- UserAccounts Table
-
-CREATE TABLE
-    IF NOT EXISTS UserAccounts (
-        UserID INT PRIMARY KEY,
-        Username VARCHAR(50) NOT NULL,
-        PasswordHash VARCHAR(255) NOT NULL,
-        RoleID INT,
-        OfficerID INT,
-        FOREIGN KEY (RoleID) REFERENCES `Rank`(RankID),
-        FOREIGN KEY (OfficerID) REFERENCES Police(OfficerID)
-    );
-
--- AuditLog Table
-
-CREATE TABLE
-    IF NOT EXISTS AuditLog (
-        LogID INT PRIMARY KEY,
-        Timestamp TIMESTAMP,
-        UserID INT,
-        Action VARCHAR(50),
-        Details TEXT,
-        FOREIGN KEY (UserID) REFERENCES UserAccounts(UserID)
-    );
-
--- Drop the tables if they exist
-
-DROP TABLE IF EXISTS AuditLog;
-
-DROP TABLE IF EXISTS UserAccounts;
-
-DROP TABLE IF EXISTS Cases;
-
-DROP TABLE IF EXISTS Report;
-
-DROP TABLE IF EXISTS Police;
-
-DROP TABLE IF EXISTS `Rank`;
-
-DROP TABLE IF EXISTS CaseCategory;
