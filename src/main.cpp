@@ -1,12 +1,14 @@
 #include "Case.h"
 #include "Officer.h"
 #include "Report.h"
+#include "OfficerCount.h"  // Include the OfficerCount header
 #include <iostream>
+using namespace std;
 
 int main() {
-    // Create an array of Case objects with dynamic memory allocation
+    // Create an array of Case objects
     Case* cases[3];
-    
+
     // Create an array of Officer objects with dynamic memory allocation
     Officer* officers[3];
 
@@ -39,7 +41,7 @@ int main() {
 
     // Access the totalCases, totalOfficers, and totalReports static variables
     cout << "Total Cases: " << Case::totalCases << endl;
-    cout << "Total Officers: " << Officer::totalOfficers << endl;
+    cout << "Total Officers: " << OfficerCount::getTotalOfficersCount() << endl;  // Use OfficerCount
     cout << "Total Reports: " << Report::totalReports << endl;
 
     // Deallocate the dynamically allocated memory to prevent memory leaks

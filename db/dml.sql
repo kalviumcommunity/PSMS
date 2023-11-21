@@ -2,19 +2,9 @@
 INSERT INTO Role (RoleID, RoleName)
 VALUES
 (1, 'Constable'),
-(2, 'Inspector'),
-(3, 'Superintendent'),
-(4, 'Deputy Superintendent'),
-(5, 'Inspector General'),
-(6, 'Constable Assistant'),
-(7, 'Deputy Inspector'),
-(8, 'Chief Superintendent'),
-(9, 'Sub-Inspector'),
-(10, 'Commander'),
-(11, 'Traffic Officer'),
-(12, 'Investigator'),
-(13, 'Patrol Supervisor'),
-(14, 'Forensic Expert');
+(2, 'Head Constable'),
+(3, 'Inspector'),
+(4, 'Sub-Inspector');
 
 -- Insert data into the ReportCategory table to cover all possible categories
 INSERT INTO ReportCategory (CategoryID, CategoryName, CategoryDescription)
@@ -78,16 +68,3 @@ SELECT * FROM Police_Personal;
 SELECT * FROM Reports_Case;
 SELECT * FROM UserAccounts;
 SELECT * FROM AuditLog;
-
--- INSERT data for a new police officer
-INSERT INTO Police_Personal (OfficerID, FirstName, LastName, Role, BadgeNumber, ContactInfo, EmploymentStartDate, RoleID, StationID)
-VALUES (4, 'Sarika', 'Mishra', 'Sub-Inspector', '4321', 'sarika@police.in', '2023-06-10', 9, 1);
-
--- UPDATE the information for police officer with OfficerID 4
-UPDATE Police_Personal
-SET Role = 'Investigator'
-WHERE OfficerID = 4;
-
--- DELETE the police officer with OfficerID 4
-DELETE FROM Police_Personal
-WHERE OfficerID = 4;
