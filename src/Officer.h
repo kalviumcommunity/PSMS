@@ -1,12 +1,12 @@
+// Officer.h
 #ifndef OFFICER_H
 #define OFFICER_H
 
-#include <string>
-#include <iostream>
-
+#include "Person.h"
+#include "OfficerCount.h"
 using namespace std;
 
-class Officer {
+class Officer : public Person {
 public:
     // Constructor
     Officer(int officerID, const string& firstName, const string& lastName, const string& rank,
@@ -16,30 +16,19 @@ public:
     // Destructor
     ~Officer();
 
-    // Getter methods
-    int getOfficerID() const;
-    string getFirstName() const;
-    string getLastName() const;
+    // Getter methods specific to Officer
     string getRank() const;
     string getBadgeNumber() const;
-    string getContactInfo() const;
     string getEmploymentStartDate() const;
     string getEmploymentEndDate() const;
     int getRankID() const;
 
-    // Static variable
-    static int totalOfficers;
-
-    // Static method to access totalOfficers
-    static int getTotalOfficersCount();
+    // Public method to access officerID
+    int getOfficerID() const;
 
 private:
-    int officerID;
-    string firstName;
-    string lastName;
     string rank;
     string badgeNumber;
-    string contactInfo;
     string employmentStartDate;
     string employmentEndDate;
     int rankID;
